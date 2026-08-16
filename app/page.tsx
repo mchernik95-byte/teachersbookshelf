@@ -33,6 +33,8 @@ type Course = {
   difficulty?: "accessible" | "standard" | "challenging";
 };
 
+const assetPath = (path: string) => `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
+
 const opt = (value: string, label: string): Option => ({ value, label });
 
 const questions: Question[] = [
@@ -316,7 +318,7 @@ function CourseCover({ course }: { course: Course }) {
     );
   }
 
-  return <img src={course.cover} alt={`Обложка ${course.title}`} onError={() => setFailed(true)} />;
+  return <img src={assetPath(course.cover)} alt={`Обложка ${course.title}`} onError={() => setFailed(true)} />;
 }
 
 export default function Home() {
@@ -399,7 +401,7 @@ export default function Home() {
           <a className="brand" href="#top" aria-label="Teachers Book Shelf — на главную">Teachers Book Shelf</a>
         </header>
         <div className="hero-collage" aria-hidden="true">
-          <img className="vintage-accessories" src="/unified-vintage-background.png" alt="" />
+          <img className="vintage-accessories" src={assetPath("/unified-vintage-background.png")} alt="" />
           {heroCovers.map((course, index) => (
             <div className={`editorial-cover editorial-cover-${index + 1}`} key={course.id}><CourseCover course={course} /></div>
           ))}
